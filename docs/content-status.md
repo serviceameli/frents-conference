@@ -1,0 +1,30 @@
+# Контент и источники
+
+## Подтверждено
+
+- Оригинальные логотип, шрифты, палитра, стили кнопок: https://frents.ru/moskva и https://cdn.frents.ru/_nuxt/entry.DpmfvPnL.css (11.09.2026).
+- Сайт под брендом студии, общий каталог, управление каталогом/заказами с телефона и обучение: https://frents.ru/moskva/become-a-resident.
+- Приложение и ссылки на магазины из футера Frents: https://apps.apple.com/app/frents/id6743117967 и https://play.google.com/store/apps/details?id=dev.broseph.frents.
+- Бесплатность барахолки: из запроса владельца.
+- Структура профиля специалистов: из приложенного пользователем скриншота (портфолио, услуги, цены, город, кнопка связи).
+
+## Демонстрационные данные
+
+Макеты интерфейсов, студия «Форма», даты, цены, количество предметов и заказов — примеры. Изображения предметов взяты из каталога Frents, данные карточек не являются реальными объявлениями. Все макеты отмечены как демонстрационные. Заменить их реальными снимками можно в `ProductPreview`, `ScreenStoryboard`, `AppShowcase`.
+
+## Предложения для согласования
+
+- Название и даты конференции, конкретная кампания QR.
+- Личный разбор проката и ресурс команды на него.
+- Статус раннего доступа направления «Проекты и свой склад», точный набор функций.
+- Доступность новых направлений в текущих версиях приложения: мобильные макеты показывают только каталог и заказы, а не обещание всех четырёх сервисов внутри приложения.
+- Производственные условия, цены и дальнейшая коммуникация команды.
+- Публичный домен, место хранения реальных заявок и финальные ссылки на согласие/политику для него.
+
+Четыре бонусных материала написаны и доступны, это не пустые ссылки.
+
+## Изображение первого экрана
+
+Сгенерировано built-in ImageGen, один запрос, без вариантов. В проекте: `public/assets/hero-tablescape.webp`.
+
+Промпт: high-end editorial still-life photograph of a contemporary event tablescape; sculptural white calla lilies and green amaranthus in brushed chrome vase, ivory pleated cloth, lime-chartreuse textile, chrome candleholders with tall ivory candles, clear coupe glass and silver sphere; off-white architectural setting, hard directional afternoon sun, natural texture, landscape 3:2, flowers center-right, no text/logos/UI/watermarks.
