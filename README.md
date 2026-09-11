@@ -64,3 +64,13 @@ node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1
 - `/?service=specialists&source=conference` — специалисты.
 
 Репозиторий GitHub приватный. Текущая публикация Sites — приватный предпросмотр для владельца. Для реального QR нужен публичный адрес и согласованные офферы.
+
+## Сборка для GitHub Pages
+
+```sh
+npm run build:pages
+```
+
+Готовые статические файлы: `pages-dist/` (игнорируются Git в основной ветке). Они публикуются отдельной веткой `codex/github-pages`. Исходный React-компонент общий для обеих сборок.
+
+В сборке Pages все изображения, шрифты и бонусы используют префикс `/frents-conference/`. Контактная форма обращается к отдельному серверу `https://frents-conference.ameli-aniri.chatgpt.site/api/leads`; GitHub Pages сам не выполняет серверный код. На сервере разрешён CORS только для `https://serviceameli.github.io` и собственного домена. Для реального приёма заявок извне сервер должен быть опубликован с публичным доступом.

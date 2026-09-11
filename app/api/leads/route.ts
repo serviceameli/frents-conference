@@ -1,9 +1,26 @@
 import { getLeadDatabase } from "@/db";
 import { leadSchema } from "@/lib/lead-validation";
 
-const json=(data:unknown,status=200)=>Response.json(data,{status,headers:{"Cache-Control":"no-store"}});
+const pagesOrigin = "https://serviceameli.github.io";
+function permittedOrigin(request: Request) {
+ const origin = request.headers.get("origin");
+ return origin === pagesOrigin || origin === new URL(request.url).origin;
+}
+function corsHeaders(request: Request): Record<string, string> {
+ return permittedOrigin(request) ? {
+  "Access-Control-Allow-Origin": request.headers.get("origin")!,
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Max-Age": "600",
+  "Vary": "Origin",
+ } : {"Vary":"Origin"};
+}
+export async function OPTIONS(request: Request) {
+ return new Response(null,{status:permittedOrigin(request)?204:403,headers:corsHeaders(request)});
+}
 export async function POST(request:Request){
- if(request.headers.get("sec-fetch-site")==="cross-site") return json({error:"Отправьте заявку с сайта Frents."},403);
+ const json=(data:unknown,status=200)=>Response.json(data,{status,headers:{"Cache-Control":"no-store",...corsHeaders(request)}});
+ if((request.headers.has("origin") && !permittedOrigin(request)) || (request.headers.get("sec-fetch-site")==="cross-site" && !permittedOrigin(request))) return json({error:"Отправьте заявку с сайта Frents."},403);
  if(!request.headers.get("content-type")?.includes("application/json")) return json({error:"Неверный формат заявки."},415);
  if(Number(request.headers.get("content-length")||0)>12000) return json({error:"Заявка слишком большая."},413);
  let raw:unknown;
