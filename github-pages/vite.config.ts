@@ -34,5 +34,5 @@ export default defineConfig({
       writeFileSync(join(outDir, ".nojekyll"), "");
     },
   }],
-  build: { outDir, emptyOutDir: true },
+  build: { outDir, emptyOutDir: true, rollupOptions: { input: { main: join(projectRoot, "github-pages/index.html"), baraholka: join(projectRoot, "github-pages/baraholka/index.html") } } },
 });
