@@ -1,7 +1,8 @@
 "use client";
 import type { ReactNode } from "react";
-import { ArrowUpRight, ArrowDown, Check, ChevronRight, MapPin, Leaf, Repeat2, UsersRound, Sparkles, Plus, Globe2, Package, Search } from "lucide-react";
+import { ArrowUpRight, Check, MapPin, Leaf, Repeat2, UsersRound, Sparkles, Plus, Globe2, Package, Search } from "lucide-react";
 import { publicPath } from "@/lib/public-path";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import "./flea-landing.css";
 
 const MARKET = "https://sale.frents.ru/";
@@ -17,14 +18,54 @@ function ProductPhoto({item,className=""}:{item:typeof products[number];classNam
 }
 function Actions({short=false}:{short?:boolean}) {return <div className="fl-actions"><a className="fl-button fl-primary" href={MARKET}>Посмотреть Барахолку <ArrowUpRight size={18}/></a><a className="fl-button fl-secondary" href={REGISTER}>{short?"Зарегистрироваться":"Зарегистрироваться на FRENTS"}</a></div>}
 function Logo(){return <a className="fl-logo" href={publicPath("/")} aria-label="FRENTS — на главную"><img src={publicPath("/assets/frents-logo.svg")} alt="FRENTS" width="112" height="37"/></a>}
-export default function FleaLanding({ children }: { children?: ReactNode }) {
+export default function FleaLanding({ children, heroExtra, intent, onIntentChange }: {
+  children?: ReactNode;
+  heroExtra?: ReactNode;
+  intent: string;
+  onIntentChange: (value: string) => void;
+}) {
+ const buying = intent === "buy";
+ const heroBenefits = buying ? [
+  ["Находите вещи под свой проект.", "Декор, мебель, реквизит и материалы для следующего события."],
+  ["Выбирайте среди своих.", "Предложения от декораторов, флористов и прокатчиков."],
+  ["Договаривайтесь напрямую.", "Обсудите с продавцом состояние вещи, оплату и получение."],
+ ] : [
+  ["Освободите место для новых идей.", "Предложите коллегам вещи, которые больше не используете."],
+  ["Найдите свою аудиторию.", "Ваш декор увидят люди из индустрии событий."],
+  ["Размещайте из любого региона.", "Барахолка открыта всем пользователям FRENTS."],
+ ];
  return <div className="flea-page flea-integrated">
-   <section className="fl-container fl-hero">
-    <nav className="fl-breadcrumb" aria-label="Хлебные крошки"><a href={publicPath("/")}>Главная</a><ChevronRight size={12}/><span aria-current="page">Барахолка</span></nav>
-    <div className="fl-hero-grid"><div className="fl-hero-copy"><div className="fl-eyebrow"><span/> БАРАХОЛКА FRENTS</div><h1>Декор получает<br/><span>вторую жизнь</span><span className="fl-title-dot">.</span></h1><p className="fl-intro">Продавайте то, что больше не нужно, и находите декор, мебель, реквизит и другие вещи для новых проектов — среди пользователей FRENTS.</p><Actions/><div className="fl-access"><Check size={14}/> Доступно всем пользователям FRENTS</div></div>
-    <div className="fl-hero-art" aria-label="Примеры объявлений о продаже декора"><div className="fl-orbit fl-orbit-one"/><div className="fl-orbit fl-orbit-two"/><span className="fl-art-caption">ХОРОШИЕ ВЕЩИ.<br/>НОВЫЕ ИСТОРИИ.</span><span className="fl-reuse-symbol"><Repeat2 size={35} strokeWidth={1.4}/></span>{[0,1,2].map((id)=><article className={`fl-float-card fl-float-${id}`} key={id}><ProductPhoto item={products[id]}/><div className="fl-float-info"><strong>{products[id].price}</strong><span>{products[id].name}</span><small>{products[id].city}</small></div></article>)}<div className="fl-float-tag fl-tag-industry"><Sparkles size={16}/> Только event-индустрия</div><div className="fl-float-tag fl-tag-region"><Globe2 size={16}/> Из любого региона</div><span className="fl-hero-demo">Примеры объявлений</span></div></div>
-    <a href="#fl-community" className="fl-scroll-link">Хорошим вещам — новые проекты <ArrowDown size={16}/></a>
+   <section className="wrap service-detail-start fl-internal-hero" aria-labelledby="fl-internal-title">
+    <div className="detail-grid">
+     <div className="detail-copy">
+      <div className="detail-label"><span>03</span> Барахолка Frents</div>
+      <Tabs value={intent} onValueChange={onIntentChange} className="intent-tabs">
+       <TabsList aria-label="Ваша задача в Барахолке">
+        <TabsTrigger value="sell">Хочу продать</TabsTrigger>
+        <TabsTrigger value="buy">Ищу декор</TabsTrigger>
+       </TabsList>
+      </Tabs>
+      <h1 id="fl-internal-title" className="fl-internal-title">{buying ? <>Найдите декор<br/>для следующей идеи.</> : <>Декор получает<br/>вторую жизнь.</>}</h1>
+      <p className="detail-description">{buying ? "Находите декор, мебель и реквизит для новых проектов среди пользователей FRENTS. Возможно, нужная вещь уже ждёт вас здесь." : "Продавайте декор, мебель и реквизит, которые больше не нужны. Здесь их найдут люди из event-индустрии."}</p>
+      <ul className="benefit-list">{heroBenefits.map(([title,text])=><li key={title}><span><Check size={15}/></span><div><strong>{title}</strong><p>{text}</p></div></li>)}</ul>
+      <div className="detail-actions"><a className="button button-dark" href={MARKET}>Посмотреть Барахолку <ArrowUpRight size={17}/></a><span>Размещение бесплатно до конца 2026 года</span></div>
+      <a className="text-link fl-internal-register" href={REGISTER}>Зарегистрироваться на FRENTS <ArrowUpRight size={17}/></a>
+     </div>
+     <div className="product-preview preview-market fl-internal-preview">
+      <div className="preview-caption"><span>FRENTS / БАРАХОЛКА</span><span>Пример интерфейса</span></div>
+      <div className="app-window">
+       <div className="app-bar"><span className="mini-brand">FRENTS <span>барахолка</span></span><span className="tiny-tag green">Бесплатные объявления</span></div>
+       <div className="fl-market-demo">
+        <div className="mock-search"><Search size={16}/> Декор для следующей идеи</div>
+        <div className="fl-market-demo-grid">{[products[0],products[2]].map(item=><article className="fl-market-demo-card" key={item.type}><div className="fl-market-demo-photo"><ProductPhoto item={item}/></div><div className="fl-market-demo-info"><strong>{item.price}</strong><h2>{item.name}</h2><span><MapPin size={10}/>{item.city}</span></div></article>)}</div>
+        <div className="market-note"><Globe2 size={16}/> Объявления из любого региона</div>
+       </div>
+      </div>
+      <div className="preview-sticker"><span><Check size={17}/></span>{buying ? "Для вашей следующей идеи." : "Хорошие вещи продолжают работать."}</div>
+     </div>
+    </div>
    </section>
+   {heroExtra}
    <section id="fl-community" className="fl-container fl-section"><div className="fl-section-heading"><div><span className="fl-eyebrow">СВОИ ВЕЩИ. СВОИ ЛЮДИ.</span><h2>Барахолка для всей<br/>event-индустрии</h2></div><p>Раздел открыт всем пользователям FRENTS.<br/>Для тех, кто создаёт события и знает<br className="fl-desktop-break"/> ценность хорошего декора.</p></div>
     <div className="fl-benefits"><article className="fl-benefit"><span className="fl-icon"><UsersRound size={23} strokeWidth={1.5}/></span><div><h3>Доступно всем</h3><p>Декораторы, прокатчики, флористы, производители — продавайте и ищите нужное, чем бы вы ни занимались в event-индустрии.</p></div><span className="fl-benefit-detail">Один аккаунт FRENTS — все возможности <ArrowUpRight size={15}/></span></article><article className="fl-benefit"><span className="fl-icon"><Sparkles size={23} strokeWidth={1.5}/></span><div><h3>Ничего лишнего</h3><p>Декор, мебель, реквизит, материалы, оборудование и другие вещи для мероприятий. Здесь понимают, что вы ищете.</p></div><span className="fl-benefit-detail">Всё, что пригодится в следующем проекте <ArrowUpRight size={15}/></span></article></div>
     <div className="fl-manifest"><a href={REGISTER}><span>01</span><strong>Регистрируйся</strong><ArrowUpRight size={20}/></a><a href={MARKET}><span>02</span><strong>Находи</strong><ArrowUpRight size={20}/></a><a href={REGISTER}><span>03</span><strong>Размещай</strong><ArrowUpRight size={20}/></a></div>
