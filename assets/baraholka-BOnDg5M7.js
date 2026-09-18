@@ -1,1 +1,0 @@
-import{n as e,r as t,t as n}from"./compact-rMfI_ndg.js";var r=t(),i=e(),a=document.getElementById(`root`);if(!a)throw Error(`Missing page root`);(0,r.createRoot)(a).render((0,i.jsx)(n,{initialService:`market`}));

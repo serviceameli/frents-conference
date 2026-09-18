@@ -1,0 +1,1 @@
+import{n as e,r as t,t as n}from"./compact-YpMUWoIC.js";var r=t(),i=e();function a(){return(0,i.jsx)(n,{})}var o=document.getElementById(`root`);if(!o)throw Error(`Missing page root`);(0,r.createRoot)(o).render((0,i.jsx)(a,{}));
