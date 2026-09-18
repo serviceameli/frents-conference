@@ -77,15 +77,16 @@ npm run build:pages
 В сборке Pages все изображения, шрифты и бонусы используют префикс `/frents-conference/`. Контактная форма обращается к публичному серверу `https://frents-conference.ameli-aniri.chatgpt.site/api/leads`; GitHub Pages сам не выполняет серверный код. На сервере разрешён CORS только для `https://serviceameli.github.io` и собственного домена. Читать заявки через публичный сайт нельзя: доступ к базе есть у владельца через Sites.
 
 
-## Барахолка — промостраница
+## Барахолка — раздел основного лендинга
 
-Промостраница находится по `/baraholka/` (GitHub Pages: `/frents-conference/baraholka/`). Главная страница сохранена; ссылки добавлены в её меню и описание сервиса Барахолки.
+Одна общая страница Барахолки открывается через переключатель сервисов по `/?service=market#service-details` и по сохранённому адресу `/baraholka/` (на GitHub Pages — под `/frents-conference/`). Оба адреса используют `ConferenceLanding`: прежнюю шапку с четырьмя сервисами, новый контент Барахолки, оригинальный блок приложения «Вся работа. В вашем кармане», бонус конференции и FAQ.
 
-- UI: `components/flea-landing.tsx` и `components/flea-landing.css`.
-- Next/Vinext: `app/baraholka/page.tsx`.
-- GitHub Pages: отдельный вход `github-pages/baraholka/index.html`.
-- Фотографии вымышленных объявлений сгенерированы для иллюстрации, объединены в атлас `public/assets/frents-products-atlas.jpg`. Цены и города демонстрационные.
-- Кнопки ведут в действующую Барахолку FRENTS и её единый вход по телефону. Регистрация и продажа происходят на FRENTS.
-- Условия: бесплатное размещение до конца 2026 года; возможны последующие ограничения числа активных объявлений.
+- Общий каркас, переключение сервисов и форма бонуса: `components/conference-landing.tsx`.
+- Контент Барахолки: `components/flea-landing.tsx` и `components/flea-landing.css`; размеры текста, кнопки и отступы согласованы с основной страницей.
+- Next/Vinext: `app/page.tsx` и `app/baraholka/page.tsx`.
+- GitHub Pages: входы `github-pages/index.html` и `github-pages/baraholka/index.html`.
+- Изображения вымышленных объявлений: `public/assets/frents-products-atlas.jpg`. Цены и города демонстрационные.
+- CTA ведут в действующую Барахолку FRENTS и её единый вход по телефону. Форма бонуса сохраняет существующее подключение к API.
+- Условия: размещение бесплатно до конца 2026 года; позднее возможны ограничения числа активных объявлений.
 
-Сборка обеих страниц: `npm run build:pages`. Публикуется содержимое `pages-dist/` в существующую ветку `codex/github-pages`.
+Сборка: `npm run build:pages`. Публикуется содержимое `pages-dist/` в существующую ветку `codex/github-pages`.
